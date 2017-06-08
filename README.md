@@ -2,13 +2,13 @@
 
 http://blog.csdn.net/szsteel1/article/details/54773544
 
-## 安装shadowsocks
+## 1. 安装shadowsocks
 
 ```
 # apt install shadowsocks proxychains
 ```
 
-## 配置shadowsocks
+## 2. 配置shadowsocks
 
 新建文件/etc/shadowsocks/shadowsocks.json，内容如下：
 
@@ -23,13 +23,13 @@ http://blog.csdn.net/szsteel1/article/details/54773544
 }    
 ``` 
 
-## 启动shadowsocks
+## 3. 启动shadowsocks
 
 ```
 # sslocal -c /etc/shadowsocks/shadowsocks.json &
 ```
 
-## 配置proxychains
+## 4. 配置proxychains
 
 编辑/etc/proxychains.conf，最下面有一行
 ```
@@ -44,12 +44,9 @@ socks5 127.0.0.1 1080
 proxychains curl www.google.com
 ```
 
+## 5. shadowsocks设置为开机自动加载的systemd服务
 
-
-
-## shadowsocks设置为开机自动加载的systemd服务
-
-### 新建服务文件
+### 5.1 新建服务文件
 
 在/lib/systemd/system目录下新建一个文件shadowsocks@.service
 
@@ -67,30 +64,30 @@ ExecStart=/usr/bin/sslocal -c /etc/shadowsocks/shadowsocks.json
 WantedBy=multi-user.target
 ```
 
-### 启动shadowsocks服务
+### 5.2 启动shadowsocks服务
 
 ```
 # systemctl start shadowsocks@shadowsocks.service
 # systemctl start shadowsocks@cloudss.service
 ```
 
-### 设置开机自启动
+### 5.3 设置开机自启动
 
 ```
 # systemctl enable shadowsocks@shadowsocks.service
 # systemctl enable shadowsocks@cloudss.service
 ```
 
-## 使用方法
+## 6. 使用方法
 
-### 命名行前缀
+### 6.1 命名行前缀
 用命令行启动软件，在前面加上proxychains，如：
 
 ```
 proxychains firefox
 ```
 
-### 新bash
+### 6.2 新建bash
 
 也可以通过输入
 ```
