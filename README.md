@@ -18,7 +18,7 @@ vi /etc/shadowsocks/shadowsocks.json
 
 ```
 {
-  "server":"服务器名",
+  "server":"ip",
   "server_port":1984,
   "local_port":1080,
   "password":"密码",
