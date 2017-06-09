@@ -1,7 +1,5 @@
 # Ubuntu 16.04 shadowsocks+proxychains 安装及设置
 
-http://blog.csdn.net/szsteel1/article/details/54773544
-
 ## 1. 安装shadowsocks
 
 ```
@@ -10,7 +8,13 @@ apt install shadowsocks proxychains
 
 ## 2. 配置shadowsocks
 
-新建文件/etc/shadowsocks/shadowsocks.json，内容如下：
+新建文件
+
+```
+vi /etc/shadowsocks/shadowsocks.json
+```
+
+内容如下
 
 ```
 {
@@ -23,13 +27,13 @@ apt install shadowsocks proxychains
 }    
 ``` 
 
-## 3. 启动shadowsocks
+然后可以尝试启动
 
 ```
 sslocal -c /etc/shadowsocks/shadowsocks.json &
 ```
 
-## 4. 配置proxychains
+## 3. 配置proxychains
 
 编辑/etc/proxychains.conf，最下面有一行
 ```
@@ -44,9 +48,9 @@ socks5 127.0.0.1 1080
 proxychains curl www.google.com
 ```
 
-## 5. shadowsocks设为systemd服务
+## 4. shadowsocks设为systemd服务
 
-### 5.1 新建服务配置
+### 4.1 新建配置
 
 ```
 vi /lib/systemd/system/shadowsocks@.service
@@ -68,30 +72,30 @@ ExecStart=/usr/bin/sslocal -c /etc/shadowsocks/shadowsocks.json
 WantedBy=multi-user.target
 ```
 
-### 5.2 启动服务
+### 4.2 启动服务
 
 ```
 systemctl start shadowsocks@shadowsocks.service
 systemctl start shadowsocks@cloudss.service
 ```
 
-### 5.3 开机自启动
+### 4.3 开机自启动
 
 ```
 systemctl enable shadowsocks@shadowsocks.service
 systemctl enable shadowsocks@cloudss.service
 ```
 
-## 6. 使用方法
+## 5. 使用方法
 
-### 6.1 命名行前缀
+### 5.1 命名行前缀
 用命令行启动软件，在前面加上proxychains，如：
 
 ```
 proxychains firefox
 ```
 
-### 6.2 新建bash
+### 5.2 新建bash
 
 也可以通过输入
 ```
