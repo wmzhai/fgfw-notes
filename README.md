@@ -5,7 +5,7 @@ http://blog.csdn.net/szsteel1/article/details/54773544
 ## 1. 安装shadowsocks
 
 ```
-# apt install shadowsocks proxychains
+apt install shadowsocks proxychains
 ```
 
 ## 2. 配置shadowsocks
@@ -15,18 +15,18 @@ http://blog.csdn.net/szsteel1/article/details/54773544
 ```
 {
   "server":"服务器名",
-  "server_port":服务器端口号,
+  "server_port":1984,
   "local_port":1080,
   "password":"密码",
   "timeout":600,
-  "method":"加密方式"
+  "method":"aes-256-cfb"
 }    
 ``` 
 
 ## 3. 启动shadowsocks
 
 ```
-# sslocal -c /etc/shadowsocks/shadowsocks.json &
+sslocal -c /etc/shadowsocks/shadowsocks.json &
 ```
 
 ## 4. 配置proxychains
@@ -44,11 +44,15 @@ socks5 127.0.0.1 1080
 proxychains curl www.google.com
 ```
 
-## 5. shadowsocks设置为开机自动加载的systemd服务
+## 5. shadowsocks设为systemd服务
 
-### 5.1 新建服务文件
+### 5.1 新建服务配置
 
-在/lib/systemd/system目录下新建一个文件shadowsocks@.service
+```
+vi /lib/systemd/system/shadowsocks@.service
+```
+
+写入下面内容
 
 ```
 [Unit]
@@ -64,18 +68,18 @@ ExecStart=/usr/bin/sslocal -c /etc/shadowsocks/shadowsocks.json
 WantedBy=multi-user.target
 ```
 
-### 5.2 启动shadowsocks服务
+### 5.2 启动服务
 
 ```
-# systemctl start shadowsocks@shadowsocks.service
-# systemctl start shadowsocks@cloudss.service
+systemctl start shadowsocks@shadowsocks.service
+systemctl start shadowsocks@cloudss.service
 ```
 
-### 5.3 设置开机自启动
+### 5.3 开机自启动
 
 ```
-# systemctl enable shadowsocks@shadowsocks.service
-# systemctl enable shadowsocks@cloudss.service
+systemctl enable shadowsocks@shadowsocks.service
+systemctl enable shadowsocks@cloudss.service
 ```
 
 ## 6. 使用方法
