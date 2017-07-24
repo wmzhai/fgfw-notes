@@ -92,7 +92,7 @@ systemctl enable shadowsocks@cloudss.service
 用命令行启动软件，在前面加上proxychains，如：
 
 ```
-proxychains firefox
+proxychains curl www.google.com
 ```
 
 ### 5.2 新建bash
